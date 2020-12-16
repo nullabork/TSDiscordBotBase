@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { env } from './env';
+import { env, envBoolValue } from './env';
 import { Client } from 'discord.js';
 import { Command } from './models/Command';
 import { Logger } from './kitchen/Logger';

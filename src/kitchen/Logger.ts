@@ -31,9 +31,9 @@ export class Logger {
         }
 
         const noLogging =
-            (envBool((e) => e.LOG_INFO) && logLevel == LoggingLevel.INFO) ||
-            (envBool((e) => e.LOG_WARN) && logLevel == LoggingLevel.WARN) ||
-            (envBool((e) => e.LOG_ERROR) && logLevel == LoggingLevel.ERROR);
+            (!envBool((e) => e.LOG_INFO) && logLevel == LoggingLevel.INFO) ||
+            (!envBool((e) => e.LOG_WARN) && logLevel == LoggingLevel.WARN) ||
+            (!envBool((e) => e.LOG_ERROR) && logLevel == LoggingLevel.ERROR);
 
         if (noLogging) return;
 
