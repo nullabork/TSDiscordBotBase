@@ -1,6 +1,8 @@
 import { Message } from 'discord.js';
-import { Command } from '../models/Command';
+import { Command, ICommandParts } from '../models/Command';
 import { IEnv } from '../env';
+import { Logger } from '../kitchen/Logger';
+import { DBI } from '../db';
 
 export const enum Template {
     DefaultHTML = 'default.html',
@@ -32,13 +34,25 @@ export interface FrameInterface {
 }
 
 export interface IExecuteProps {
-    message?: Message;
-    commands?: Command[];
-    env?: IEnv;
+    message: Message;
+    commands: Map<string, typeof Command>;
+    env: IEnv;
+    parts: ICommandParts;
+    logger: typeof Logger;
+    db: DBI;
+}
+
+export interface IOnMessageProps extends IExecuteProps {}
+
+export const enum Events {
+    onMessage = 'onMessage',
+    onUserJoinedChannel = 'onUserJoinedChannel',
+    onValidate = 'onValidate',
+    onJoinVoice = 'onJoinVoice',
+    onLeaveVoice = 'onLeaveVoice',
 }
 
 export interface ICommand {
-    execute?(props: IExecuteProps): boolean;
     keyword: string;
     template?: Template;
     frames?: FrameInterface[];
